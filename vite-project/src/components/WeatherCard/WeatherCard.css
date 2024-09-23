@@ -9,6 +9,7 @@
 .weather-card__temp {
     font-size: 36px;
     line-height: 40px;
+    color: #FFF;
     margin: 0;
     position: absolute;
     top: 20px;

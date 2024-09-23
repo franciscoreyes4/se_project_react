@@ -1,10 +1,16 @@
-function ItemCard() {
-    return (
-        <div key={item.id}>
-                <h2>{item.name}</h2>
-                <img src={item.link} alt={item.name} />
-              </div>
-    )
+import "./ItemCard.css";
+
+function ItemCard({ item, onCardClick }) {
+  const handleOnCardClick = () => {
+    onCardClick(item);
+  };
+
+  return (
+    <li className="card">
+      <h2 className="card__name">{item.name}</h2>
+      <img onClick={handleOnCardClick} className="card__image" src={item.link} alt={item.name} />
+    </li>
+  );
 }
 
 export default ItemCard;
