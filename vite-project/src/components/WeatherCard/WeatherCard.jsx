@@ -1,3 +1,4 @@
+import React from "react";
 import "./WeatherCard.css";
 import sunny from "../../assets/sunny.png";
 

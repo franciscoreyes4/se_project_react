@@ -5,7 +5,6 @@ import avatar from "../../assets/avatar.png";
 
 function Header({ handleAddClick, weatherData }) { 
   const currentDate = new Date().toLocaleString("default", { month: "long", day: "numeric" });
-  
   const cityName = weatherData.city || "Unknown Location";
 
   return (

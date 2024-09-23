@@ -28,7 +28,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("API Key in App.jsx: ", APIkey);  // Add this line to log the API key
     getWeather(coordinates, APIkey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
