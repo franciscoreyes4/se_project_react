@@ -13,6 +13,7 @@ function App() {
   const [weatherData, setWeatherData] = useState({ type: "", temp: { F: null }, city: "" });
   const [activeModal, setActiveModal] = useState(""); // Controls which modal is active
   const [selectedCard, setSelectedCard] = useState({});
+  const [currentTempertureUnit, setCurrentTemperatureUnit] =useState('F');
 
   const handleCardClick = (card) => {
     setActiveModal("preview");

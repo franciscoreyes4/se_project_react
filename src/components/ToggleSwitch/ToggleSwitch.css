@@ -1,0 +1,56 @@
+.switch {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 56px;
+    height: 28px;
+    background-color: #FFF;
+    border-radius: 30px;
+    padding: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); 
+    margin: 0 0 0 auto;
+    border: none;
+}
+
+.switch__box {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+
+.switch__slider {
+    border-radius: 20px;
+    width: 28px;
+    height: 28px;
+    background-color: #000;
+    color: #FFF;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    transition: 0.3s;
+}
+.switch__slider-F{
+    top: 0;
+    left: 28px;
+}
+
+.switch_-active {
+    color: #FFF;
+    font-size: 14px;
+}
+
+.switch__temp-C {
+    position: absolute;
+    top: -11px;
+    left: 8px;
+    color: #FFF;
+}
+
+.switch__temp-F {
+    position: absolute;
+    top: -11px;
+    left: 38px;
+    color: #FFF;
+
+}
