@@ -1,0 +1,17 @@
+.clothes-section__header {
+    display: flex;
+  }
+  
+  .clothes-section__title {
+   padding-right: 20px;
+   font-size: 20px;
+   font-weight: 700;
+  }
+
+  .clothes-section__button {
+    border: none;
+    background-color: #FFF;
+    color: rgba(0, 0, 0, 0.60);
+    font-size: 20px;
+    font-weight: 700;
+  }

@@ -18,21 +18,6 @@
     opacity: 1;
 }
 
-.modal__title {
-    margin: 0;
-    font-size: 16px;
-    line-height: 20px;
-    padding-bottom: 24px;
-}
-
-.modal__close {
-    position: absolute;
-    background-color: #FFF;
-    top: 20px;
-    right: 28px;
-    border: none;
-}
-
 .modal__content {
     background-color: #fff;
     position: relative;
@@ -87,3 +72,49 @@
     justify-content: center; 
     align-items: center;  
 }
+
+
+.modal__close {
+    color: #FFF;
+    background: none;
+    position: absolute;
+    background-color: #FFF;
+    top: 20px;
+    right: 28px;
+    border: none;
+}
+
+.modal__footer {
+    padding: 20px;
+}
+
+.modal__caption {
+    font-size: 20px;
+    font-weight: bold;
+    padding: o;
+    margin: 0;
+}
+
+.modal__weather {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.modal__delete-button {
+    color: red;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    background: none;
+    text-decoration: none;
+    margin-top: 10px;
+    position: absolute;
+    right: 32px;
+    top: 612px;
+  }
+  
+  .modal__delete-button:hover {
+    opacity: 0.8;
+  }

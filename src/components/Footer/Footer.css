@@ -1,13 +1,22 @@
 .footer {
     font-size: 16px;
     font-family: Arial, sans-serif;
-    position: absolute;
-    bottom: 24px;
-    right: 42px;
-    left: 40px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    background-color: #fff; 
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .footer__text {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; 
+    margin: 0 40px; 
 }
