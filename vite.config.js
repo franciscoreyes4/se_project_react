@@ -4,8 +4,8 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // add the server object
+  base: "/se_project_react/",  // Base path for GitHub Pages compatibility
   server: {
-    port: 3000,
-  },
+    port: 3000,  // Port for local development
+  }
 });
