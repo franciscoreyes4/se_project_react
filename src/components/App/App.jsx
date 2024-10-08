@@ -1,4 +1,4 @@
-// App.js
+
 import React, { useState, useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom"; // Use HashRouter for GitHub Pages compatibility
 import "../../vendor/normalize.css";
