@@ -1,9 +1,9 @@
 // App.js
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom"; // Use HashRouter for GitHub Pages compatibility
 import "../../vendor/normalize.css";
 import './App.css';
-import { coordinates, APIkey } from "../../utils/constants";
+import { coordinates, APIkey, defaultClothingItems } from "../../utils/constants";
 import Header from '../Header/Header';
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
@@ -22,6 +22,8 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
   const [clothingItems, setClothingItems] = useState([]);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+
+  const isLocal = window.location.hostname === 'localhost';
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(prevUnit => prevUnit === 'C' ? 'F' : 'C');
@@ -82,14 +84,20 @@ function App() {
       })
       .catch(console.error);
 
-    getItems()
-      .then(data => setClothingItems(data))
-      .catch(console.error);
+    if (isLocal) {
+      // Fetch items from local json-server if running locally
+      getItems()
+        .then(data => setClothingItems(data))
+        .catch(console.error);
+    } else {
+      // Use defaultClothingItems for GitHub Pages or any non-local environment
+      setClothingItems(defaultClothingItems);
+    }
   }, []);
 
   return (
     <CurrentTemperatureUnitContext.Provider value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
-      <BrowserRouter>
+      <Router>
         <div className="app__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
           <Routes>
@@ -127,7 +135,7 @@ function App() {
           handleConfirmDelete={confirmDelete}
           handleCloseClick={() => setIsConfirmationModalOpen(false)}
         />
-      </BrowserRouter>
+      </Router>
     </CurrentTemperatureUnitContext.Provider>
   );
 }
