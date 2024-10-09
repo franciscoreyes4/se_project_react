@@ -1,4 +1,3 @@
-// Main.js
 import React, { useContext } from "react";
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";

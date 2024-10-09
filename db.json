@@ -103,16 +103,6 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
     },
     {
-      "name": "Cap",
-      "_id": 17
-    },
-    {
-      "name": "cap",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
-      "weather": "hot",
-      "_id": 18
-    },
-    {
       "name": "cap",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
       "weather": "hot",
@@ -125,15 +115,15 @@
       "_id": 20
     },
     {
-      "name": "cap",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
-      "weather": "hot",
+      "name": "sweater",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8",
+      "weather": "warm",
       "_id": 21
     },
     {
-      "name": "cap",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
-      "weather": "hot",
+      "name": "el sal",
+      "imageUrl": "https://images.pexels.com/photos/2599136/pexels-photo-2599136.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "weather": "warm",
       "_id": 22
     }
   ]

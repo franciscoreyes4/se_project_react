@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom"; // Use HashRouter for GitHub Pages compatibility
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import "../../vendor/normalize.css";
-import './App.css';
+import "./App.css";
 import { coordinates, APIkey, defaultClothingItems } from "../../utils/constants";
-import Header from '../Header/Header';
+import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
@@ -19,17 +18,18 @@ function App() {
   const [weatherData, setWeatherData] = useState({ type: "", temp: { F: null, C: null }, city: "" });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const isLocal = window.location.hostname === 'localhost';
+  const isLocal = window.location.hostname === "localhost";
 
   const handleToggleSwitchChange = () => {
-    setCurrentTemperatureUnit(prevUnit => prevUnit === 'C' ? 'F' : 'C');
+    setCurrentTemperatureUnit(prevUnit => (prevUnit === "C" ? "F" : "C"));
   };
 
-  const handleCardClick = (card) => {
+  const handleCardClick = card => {
     setActiveModal("preview");
     setSelectedCard(card);
   };
@@ -50,30 +50,36 @@ function App() {
     }
   };
 
-  const confirmDelete = async () => {
+  const confirmDelete = () => {
     if (!selectedCard._id) {
       console.error("Cannot delete item: selectedCard ID is undefined.");
       return;
     }
 
-    try {
-      await deleteItem(selectedCard._id);
-      setClothingItems(prevItems => prevItems.filter(item => item._id !== selectedCard._id));
-      setIsConfirmationModalOpen(false);
-      closeActiveModal();
-    } catch (error) {
-      console.error('Failed to delete item:', error);
-    }
+    deleteItem(selectedCard._id)
+      .then(() => {
+        setClothingItems(prevItems => prevItems.filter(item => item._id !== selectedCard._id));
+        setIsConfirmationModalOpen(false); 
+        closeActiveModal();
+      })
+      .catch(error => {
+        console.error("Failed to delete item:", error);
+      });
   };
 
-  const onAddItem = async (values) => {
-    try {
-      const newItem = await addItem(values.name, values.url, values.weather);
-      setClothingItems(prevItems => [...prevItems, newItem]);
-      closeActiveModal();
-    } catch (error) {
-      console.error('Failed to add item:', error);
-    }
+  const onAddItem = values => {
+    setIsLoading(true);
+    addItem(values.name, values.url, values.weather)
+      .then(newItem => {
+        setClothingItems(prevItems => [newItem, ...prevItems]);
+        closeActiveModal(); 
+      })
+      .catch(error => {
+        console.error("Failed to add item:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -85,15 +91,29 @@ function App() {
       .catch(console.error);
 
     if (isLocal) {
-      // Fetch items from local json-server if running locally
       getItems()
         .then(data => setClothingItems(data))
-        .catch(console.error);
+        .catch(error => console.error("Error fetching items:", error));
     } else {
-      // Use defaultClothingItems for GitHub Pages or any non-local environment
       setClothingItems(defaultClothingItems);
     }
   }, []);
+
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = e => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   return (
     <CurrentTemperatureUnitContext.Provider value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
@@ -101,33 +121,36 @@ function App() {
         <div className="app__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
           <Routes>
-            <Route 
-              path="/" 
-              element={<Main weatherData={weatherData} clothingItems={clothingItems} handleCardClick={handleCardClick} />} 
+            <Route
+              path="/"
+              element={<Main weatherData={weatherData} clothingItems={clothingItems} handleCardClick={handleCardClick} />}
             />
-            <Route 
-              path="/profile" 
-              element={<Profile weatherData={weatherData} clothingItems={clothingItems} handleCardClick={handleCardClick} />} 
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  weatherData={weatherData}
+                  clothingItems={clothingItems}
+                  handleCardClick={handleCardClick}
+                  handleAddClick={handleAddClick}
+                />
+              }
             />
           </Routes>
           <Footer />
         </div>
 
         {activeModal === "add-garment" && (
-          <AddItemModal 
-            handleCloseClick={closeActiveModal} 
-            isOpen={activeModal === "add-garment"} 
-            onAddItem={onAddItem} 
+          <AddItemModal
+            handleCloseClick={closeActiveModal}
+            isOpen={activeModal === "add-garment"}
+            onAddItem={onAddItem}
+            isLoading={isLoading}
           />
         )}
 
         {activeModal === "preview" && (
-          <ItemModal 
-            activeModal={activeModal}
-            card={selectedCard}
-            handleCloseClick={closeActiveModal} 
-            onDeleteItem={handleDeleteClick} 
-          />
+          <ItemModal activeModal={activeModal} card={selectedCard} handleCloseClick={closeActiveModal} onDeleteItem={handleDeleteClick} />
         )}
 
         <ConfirmationModal

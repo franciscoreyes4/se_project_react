@@ -1,8 +1,7 @@
-// AddItemModal.js
 import React, { useState } from "react";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";  
 
-const AddItemModal = ({ handleCloseClick, onAddItem, isOpen }) => {
+const AddItemModal = ({ handleCloseClick, onAddItem, isOpen, isLoading }) => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [weather, setWeather] = useState("");
@@ -32,11 +31,11 @@ const AddItemModal = ({ handleCloseClick, onAddItem, isOpen }) => {
   return (
     <ModalWithForm
       title="New Garment"
-      buttonText="Add garment"
+      buttonText={isLoading ? "Saving..." : "Add garment"} 
       isOpen={isOpen}
       handleCloseClick={handleCloseClick}
       onSubmit={handleSubmit}
-      isButtonDisabled={!isFormValid}
+      isButtonDisabled={!isFormValid || isLoading} 
     >
       <label htmlFor="name" className="modal__label">
         Name

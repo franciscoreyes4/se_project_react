@@ -3,14 +3,15 @@ import "./Profile.css";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 
-function Profile({ weatherData, handleCardClick, clothingItems }) {
+function Profile({ handleCardClick, clothingItems, handleAddClick }) { 
   return (
     <div className="profile">
       <SideBar />
       <ClothesSection 
-        weatherData={weatherData} 
         handleCardClick={handleCardClick} 
         clothingItems={clothingItems} 
+        showAllItems={true}  
+        handleAddClick={handleAddClick} 
       />
     </div>
   );

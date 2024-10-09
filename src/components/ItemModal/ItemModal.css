@@ -1,6 +1,9 @@
+
+
 .modal__content_type_image {
-    max-width: 600px;
+    max-width: 498px;
     padding: 0;
+    margin: auto 0;
 }
 
 .modal__image {
@@ -8,15 +11,18 @@
     height: auto;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    object-fit: cover;
 }
 
 .modal__close {
     color: #FFF;
     background: none;
+    cursor: pointer;
 }
 
 .modal__footer {
     padding: 20px;
+    position: relative;
 }
 
 .modal__caption {
@@ -28,4 +34,17 @@
     font-size: 20px;
     color: #333;
     font-weight: bold;
+}
+
+.modal__delete-button {
+    background-color: #fff;
+    position: absolute;
+    top: 0px;
+    right: 32px;
+    color: #ff4d4d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }

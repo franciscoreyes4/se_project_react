@@ -1,54 +1,41 @@
 const baseUrl = 'http://localhost:3001';
 
+// Helper function to check the response status
+function checkResponse(response) {
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status}`);
+  }
+  return response.json(); // Parse the response as JSON if OK
+}
+
+// Helper function to make requests and apply the response check
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
 // GET request to fetch all clothing items
 export const getItems = async () => {
-  try {
-    const response = await fetch(`${baseUrl}/items`);
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching items:', error);
-  }
+  return request(`${baseUrl}/items`);
 };
 
 // POST request to add a new clothing item
 export const addItem = async (name, imageUrl, weather) => {
-  try {
-    const response = await fetch(`${baseUrl}/items`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        imageUrl,
-        weather,
-      }),
-    });
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error adding item:', error);
-  }
+  return request(`${baseUrl}/items`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      imageUrl,
+      weather,
+    }),
+  });
 };
 
 // DELETE request to remove a clothing item
-export const deleteItem = async (id) => {
-  try {
-    const response = await fetch(`${baseUrl}/items/${id}`, {
-      method: 'DELETE',
-    });
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-    return 'Item deleted successfully';
-  } catch (error) {
-    console.error('Error deleting item:', error);
-  }
+export const deleteItem = async (id) => {  
+  return request(`${baseUrl}/items/${id}`, {
+    method: 'DELETE',
+  });
 };
