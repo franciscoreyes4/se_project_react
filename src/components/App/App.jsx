@@ -17,7 +17,7 @@ import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 function App() {
   const [weatherData, setWeatherData] = useState({ type: "", temp: { F: null, C: null }, city: "" });
   const [activeModal, setActiveModal] = useState("");
-  const [selectedCard, setSelectedCard] = useState({});
+  const [selectedCard, setSelectedCard] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
@@ -36,6 +36,7 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal("");
+    setSelectedCard(null);
   };
 
   const handleAddClick = () => {
@@ -43,16 +44,16 @@ function App() {
   };
 
   const handleDeleteClick = () => {
-    if (selectedCard && selectedCard._id) {
+    if (selectedCard && (selectedCard._id || selectedCard._id === 0)) {
       setIsConfirmationModalOpen(true);
     } else {
-      console.error("Selected card ID is undefined.");
+      console.error("Selected card ID is undefined or invalid. Selected card:", selectedCard);
     }
   };
 
   const confirmDelete = () => {
-    if (!selectedCard._id) {
-      console.error("Cannot delete item: selectedCard ID is undefined.");
+    if (!selectedCard || (selectedCard._id !== 0 && !selectedCard._id)) {
+      console.error("Cannot delete item: selectedCard ID is undefined or invalid.", selectedCard);
       return;
     }
 
@@ -72,7 +73,7 @@ function App() {
     addItem(values.name, values.url, values.weather)
       .then(newItem => {
         setClothingItems(prevItems => [newItem, ...prevItems]);
-        closeActiveModal(); 
+        closeActiveModal();
       })
       .catch(error => {
         console.error("Failed to add item:", error);
@@ -149,8 +150,13 @@ function App() {
           />
         )}
 
-        {activeModal === "preview" && (
-          <ItemModal activeModal={activeModal} card={selectedCard} handleCloseClick={closeActiveModal} onDeleteItem={handleDeleteClick} />
+        {activeModal === "preview" && selectedCard && (
+          <ItemModal
+            activeModal={activeModal}
+            card={selectedCard}
+            handleCloseClick={closeActiveModal}
+            onDeleteItem={handleDeleteClick}
+          />
         )}
 
         <ConfirmationModal

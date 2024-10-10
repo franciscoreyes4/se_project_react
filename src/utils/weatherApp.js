@@ -1,16 +1,13 @@
-// Adjusted getWeather function to work with parseWeatherData
+import { checkResponse } from "./api"; 
+
 export const getWeather = async ({ latitude, longitude }, APIkey) => {
   try {
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`;
     const weatherResponse = await fetch(weatherUrl);
+    
+    const weatherData = await checkResponse(weatherResponse);
 
-    if (!weatherResponse.ok) {
-      throw new Error(`Error ${weatherResponse.status}: Failed to fetch weather data`);
-    }
-
-    const weatherData = await weatherResponse.json();
-
-    // Use parseWeatherData to process the fetched data
+    // Process the fetched data
     const parsedWeather = parseWeatherData(weatherData);
 
     return {
@@ -24,7 +21,7 @@ export const getWeather = async ({ latitude, longitude }, APIkey) => {
   }
 };
 
-// Adjusted parseWeatherData function to handle Fahrenheit and Celsius
+// Function to parse the temperature data from the API and convert it to both Fahrenheit and Celsius
 export const parseWeatherData = (data) => {
   const main = data.main;
   const temperature = main && main.temp;
@@ -39,7 +36,7 @@ export const parseWeatherData = (data) => {
   return weather;
 };
 
-// Adjusted filterWeatherData to work with new structure
+// Function to filter and structure the weather data with city, temperature, and weather type
 export const filterWeatherData = (data) => {
   const result = {};
 

@@ -119,12 +119,6 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8",
       "weather": "warm",
       "_id": 21
-    },
-    {
-      "name": "el sal",
-      "imageUrl": "https://images.pexels.com/photos/2599136/pexels-photo-2599136.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "weather": "warm",
-      "_id": 22
     }
   ]
 }

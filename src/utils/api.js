@@ -1,15 +1,14 @@
 const baseUrl = 'http://localhost:3001';
 
-// Helper function to check the response status
-function checkResponse(response) {
+// Helper function to check the response status and parse JSON if response is OK
+export function checkResponse(response) {
   if (!response.ok) {
     throw new Error(`Error: ${response.status}`);
   }
-  return response.json(); // Parse the response as JSON if OK
+  return response.json(); 
 }
 
-// Helper function to make requests and apply the response check
-function request(url, options) {
+export function request(url, options) {
   return fetch(url, options).then(checkResponse);
 }
 
