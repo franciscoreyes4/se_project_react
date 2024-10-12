@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";  
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const AddItemModal = ({ handleCloseClick, onAddItem, isOpen, isLoading }) => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [weather, setWeather] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -22,18 +21,7 @@ const AddItemModal = ({ handleCloseClick, onAddItem, isOpen, isLoading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name && url && weather) {
-      setIsSubmitting(true);
-
-      onAddItem({ name, url, weather })
-        .then(() => {
-          handleCloseClick();
-        })
-        .catch((error) => {
-          console.error("Error adding item:", error);
-        })
-        .finally(() => {
-          setIsSubmitting(false);
-        });
+      onAddItem({ name, url, weather });
     }
   };
 
@@ -42,11 +30,11 @@ const AddItemModal = ({ handleCloseClick, onAddItem, isOpen, isLoading }) => {
   return (
     <ModalWithForm
       title="New Garment"
-      buttonText={isLoading || isSubmitting ? "Saving..." : "Add garment"} 
+      buttonText={isLoading ? "Saving..." : "Add garment"}
       isOpen={isOpen}
       handleCloseClick={handleCloseClick}
       onSubmit={handleSubmit}
-      isButtonDisabled={!isFormValid || isLoading || isSubmitting} 
+      isButtonDisabled={!isFormValid || isLoading}
     >
       <label htmlFor="name" className="modal__label">
         Name
